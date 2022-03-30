@@ -1,5 +1,5 @@
 # testdata-loader
-Loading data for your tests is always a pain in go since where you do not specify paths relative to the test itself, but relative to the entrypoint of the test.
+Loading data for your tests is always a pain in go since you do not specify paths relative to the test itself, but relative to the entrypoint of the test.
 This brings lots of confusion, especially when there is a function loading test data that is shared between multiple tests at different locations: When retrieving the current directory, the results will be different depending on the calling test.
 
 Also, nobody wants to type `../../../../testdata/test1.json`
