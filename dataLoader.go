@@ -13,10 +13,10 @@ func GetBasePath() string {
 	if err != nil {
 		panic(err)
 	}
-	for _, err := ioutil.ReadFile(dir + "/go.mod"); err != nil && len(dir) > 1; {
+	for _, err := ioutil.ReadFile(filepath.Join(dir, "go.mod")); err != nil && len(dir) > 1; {
 		println(dir)
 		dir = filepath.Dir(dir)
-		_, err = ioutil.ReadFile(dir + "/go.mod")
+		_, err = ioutil.ReadFile(filepath.Join(dir, "go.mod"))
 	}
 	if len(dir) < 2 {
 		panic("No go.mod found")
@@ -34,7 +34,7 @@ func GetBasePath() string {
 //			- test2.json
 // Here you can provide pattern="data/test*.json"
 func GetRandTestFile(pattern string) []byte {
-	absolutePattern := GetBasePath() + "/" + pattern
+	absolutePattern := filepath.Join(GetBasePath(), pattern)
 	files, err := filepath.Glob(absolutePattern)
 	if err != nil {
 		panic(err)
@@ -60,7 +60,7 @@ func GetRandTestFile(pattern string) []byte {
 // Now do
 // 			test1:=GetTestFile("data/test1.json")
 func GetTestFile(relativePath string) []byte {
-	absolutePath := GetBasePath() + "/" + relativePath
+	absolutePath := filepath.Join(GetBasePath(), relativePath)
 	file, err := ioutil.ReadFile(absolutePath)
 	if err != nil {
 		panic(err)
